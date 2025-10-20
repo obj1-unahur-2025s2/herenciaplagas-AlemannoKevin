@@ -1,24 +1,39 @@
 class Hogar {
-    const nivelDeMugre
+    var nivelDeMugre
     const comfort
 
     method esBueno() = nivelDeMugre <= comfort / 2 
+    method esAtacadoPor(unaPlaga) {
+        nivelDeMugre += unaPlaga.nivelDeDanio()
+    }
 }
 
 class Huerta {
-    const cantidadDeProduccion
-    var nivelDeProduccion = 100
+    var cantidadDeProduccion
+    
+    method esBueno() = cantidadDeProduccion > valorMinimo.valor()
+    method esAtacadoPor(unaPlaga) {
+        cantidadDeProduccion = 0.max(cantidadDeProduccion - unaPlaga.nivelDeDanio() * 0.1)
+        cantidadDeProduccion = 0.max(cantidadDeProduccion - if(unaPlaga.transmiteEnfermedad()) 10 else 0)
+    }
+}
 
-    method esBueno() = cantidadDeProduccion > nivelDeProduccion
-    method nivelDeProduccion(nuevoNivel) {
-        nivelDeProduccion = nuevoNivel
+object valorMinimo {
+    var valor = 100
+
+    method valor() = valor
+    method valor(nuevoValor) {
+        valor = nuevoValor
     }
 }
 
 class Mascota {
-    const nivelDeSalud
+    var nivelDeSalud
 
     method esBueno() = nivelDeSalud > 250
+    method esAtacadoPor(unaPlaga) {
+        nivelDeSalud = 0.max(nivelDeSalud - if(unaPlaga.transmiteEnfermedad()) unaPlaga.nivelDeDanio() else 0)
+    }
 }
 
 class Barrio {
