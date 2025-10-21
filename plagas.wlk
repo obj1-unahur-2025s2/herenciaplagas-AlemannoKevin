@@ -1,14 +1,21 @@
 class Plaga {
-    const poblacion
+    var poblacion
 
     method transmiteEnfermedad() = poblacion >= 10
+    method atacarElemento() {
+        poblacion += poblacion * 0.1
+    } 
 }
 
 class PlagaDeCucarachas inherits Plaga {
-    const pesoPromedio
+    var pesoPromedio
 
     method nivelDeDanio() = poblacion / 2
     override method transmiteEnfermedad() = super() and pesoPromedio >= 10
+    override method atacarElemento() {
+        super()
+        pesoPromedio += 2
+    }
 }
 
 class PlagaDePulgas inherits Plaga {
@@ -17,7 +24,9 @@ class PlagaDePulgas inherits Plaga {
 }
 
 class PlagaDeGarrapatas inherits PlagaDePulgas {
-
+    override method atacarElemento() {
+        poblacion += poblacion * 0.2
+    }
 }
 
 class PlagaDeMosquitos inherits Plaga {
